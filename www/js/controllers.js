@@ -45,20 +45,19 @@ angular.module('feedscrapper.controllers', [])
 })
 
 
-.controller('ContentCtrl',function ($scope,$state,Content) {
+.controller('ContentCtrl',function ($stateParams,$scope,$state,Content) {
   //TODO: Content.get($stateParams.id)
-  Content.get(1).then(function (res) {
+  Content.get($stateParams.id).then(function (res) {
     $scope.content = res.data;
-    console.log(res.data);  
   },
   function (err) {
     console.log(err);
   })
 })
 
-.controller('CategoriesCtrl', function ($scope,Category) {
+.controller('CategoriesCtrl', function ($stateParams,$scope,Category) {
   //TODO: Category.get($stateParams.id)
-  Category.get(1).then(function (res) {
+  Category.get($stateParams.id,0,10).then(function (res) {
     $scope.contents = res.data.contents;
   },
   function (err) {

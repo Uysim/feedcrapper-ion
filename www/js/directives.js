@@ -14,13 +14,13 @@ angular.module('feedscrapper.directives', [])
     },
     controller: function ($scope,$state,Webcategories,HomePage) {
       //TODO: change to WebTypes.get($scope.ngModel.id)
+      Webcategories.get($scope.ngModel.id).then(function (res) {
+        $scope.categories = res.data.categories;
+      },
+      function (err) {
+        alert(err.data);
+      });
       $scope.homePageWebsite = function (categories) {
-        Webcategories.get(1).then(function (res) {
-          $scope.categories = res.data.categories;
-        },
-        function (err) {
-          alert(err.data);
-        });
         HomePage.set_categories(categories)
         // console.log(categories);
         $state.go('app.websites',{id: 1})
@@ -53,7 +53,7 @@ angular.module('feedscrapper.directives', [])
     },
     controller: function ($scope,$state,Category) {
       //TODO: Category.get($scope.ngModel.id)
-      Category.get(1).then(function (res) {
+      Category.get($scope.ngModel.id,0,2).then(function (res) {
         $scope.contents = res.data.contents
       },
       function (err) {

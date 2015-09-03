@@ -17,6 +17,7 @@ angular.module('feedscrapper.services', [])
     }
   }
 })
+
 .factory('Webcategories', function ($http) {
   return {
     get: function (webid) {
@@ -27,8 +28,8 @@ angular.module('feedscrapper.services', [])
 
 .factory('Category', function ($http) {
   return {
-    get: function (category_id) {
-      return $http.get('http://128.199.65.71:3000/categories/'+category_id+'.json?page=0&items=2')
+    get: function (category_id,page,items) {
+      return $http.get('http://128.199.65.71:3000/categories/'+category_id+'.json?page=' + page + '&items=' + items)
     }
   }
 })
