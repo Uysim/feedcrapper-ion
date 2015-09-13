@@ -33,7 +33,6 @@ angular.module('feedscrapper.controllers', [])
   })
 })
 
-
 .controller('ContentCtrl',function ($scope,$stateParams,Content) {
   //TODO: Content.get($stateParams.id)
   Content.get($stateParams.id).then(function (res) {
@@ -71,5 +70,13 @@ angular.module('feedscrapper.controllers', [])
       })
     };
   }
-
+})
+.controller('CategoriesCtrl', function ($stateParams,$scope,Category) {
+  //TODO: Category.get($stateParams.id)
+  Category.get($stateParams.id,0,10).then(function (res) {
+    $scope.contents = res.data.contents;
+  },
+  function (err) {
+    console.log(err);
+  })
 })

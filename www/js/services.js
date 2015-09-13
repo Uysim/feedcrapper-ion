@@ -18,6 +18,7 @@ angular.module('feedscrapper.services', [])
     }
   }
 })
+
 .factory('Webcategories', function ($http) {
   return {
     get: function (webid) {
