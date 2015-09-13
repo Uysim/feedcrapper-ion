@@ -1,19 +1,13 @@
-<ion-view view-title="Category">
-  <ion-nav-buttons side="left">
-    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-  </ion-nav-buttons>
+<ion-view view-title="Content">
+  <ion-nav-bar>
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+  </ion-nav-bar>
+
   <ion-content>
-    <ion-spinner ng-hide="content" class="android"></ion-spinner>
-    <div class="card" ng-show="content">
-      <div class="item item-text-wrap item-divider">
-        <strong>{{content.title}}</strong>
-      </div>
-      <div class="item item-image">
-        <img ng-src="{{content.images[0]}}">
-      </div>
-      <div class="item item-text-wrap text-justify">
-        {{content.body}}
-      </div>
+    <div class="card" ng-bind-html="content.data" ng-show="content">
     </div>
+    <ion-infinite-scroll ng-if='!content'>
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>

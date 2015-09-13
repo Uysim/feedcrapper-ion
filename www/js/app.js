@@ -18,7 +18,7 @@ angular.module('feedscrapper', ['ionic', 'feedscrapper.controllers','feedscrappe
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
-    } 
+    }
   });
 })
 
@@ -69,5 +69,5 @@ angular.module('feedscrapper', ['ionic', 'feedscrapper.controllers','feedscrappe
     }
   })
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/websites/2');
+  $urlRouterProvider.otherwise('/app/websites/1');
 });

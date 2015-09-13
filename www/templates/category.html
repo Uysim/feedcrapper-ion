@@ -1,14 +1,16 @@
-<ion-view view-title="Category">
+<ion-view view-title="{{name}}">
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content>
-    <ion-spinner ng-hide="contents" class="android"></ion-spinner>
-    <ion-list>
-      <ion-item collection-repeat="content in contents track by $index" ng-href="#/app/contents/{{content.id}}">
+    <div class="list">
+      <a collection-repeat="content in contents track by $index" class="item item-thumbnail-left" href="#/app/contents/{{content.id}}">
+        <img src="{{content.thumnail}}">
         <h2>{{content.name}}</h2>
         <p>{{content.text}}</p>
-      </ion-item>
-    </ion-list>
+      </a>
+    </div>
+    <ion-infinite-scroll ng-if='is_continue' on-infinite="loadMore()" distance="25%">
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>

@@ -1,19 +1,10 @@
 angular.module('feedscrapper.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, Websites) {
+.controller('AppCtrl', function($scope, $ionicModal, Websites) {
 
-  Websites.get().success(function(data) {
-        $scope.websites = data;
-    })
-    .error(function(err) {
-        console.log(err);
-    });
-  // .then(function (res) {
-  //   $scope.websites = res.data;
-  // },
-  // function (err) {
-  //   alert(err.data);
-  // });
+  $scope.website={
+    id: 1
+  }
 })
 
 .controller('PlaylistsCtrl', function($scope) {
@@ -32,36 +23,53 @@ angular.module('feedscrapper.controllers', [])
 
 
 .controller('HomeCtrl',function ($scope,$stateParams,HomePage,Webcategories) {
-  $scope.categories = HomePage.get_categories();
-  if ($scope.categories == undefined) {
-    //TODO: Webcategories.get($stateParams.id)
-    Webcategories.get($stateParams.id).then(function (res) {
-      $scope.categories = res.data.categories;
-    },
-    function (err) {
-      console.log(err);
-    })
-  };
+
+  //TODO: Webcategories.get($stateParams.id)
+  Webcategories.get($stateParams.id).then(function (res) {
+    $scope.categories = res.data.categories;
+  },
+  function (err) {
+    console.log(err);
+  })
 })
 
 
-.controller('ContentCtrl',function ($scope,$state,Content) {
+.controller('ContentCtrl',function ($scope,$stateParams,Content) {
   //TODO: Content.get($stateParams.id)
-  Content.get(1).then(function (res) {
+  Content.get($stateParams.id).then(function (res) {
     $scope.content = res.data;
-    console.log(res.data);  
   },
   function (err) {
     console.log(err);
   })
 })
 
-.controller('CategoriesCtrl', function ($scope,Category) {
+.controller('CategoriesCtrl', function ($scope,$stateParams,Category) {
   //TODO: Category.get($stateParams.id)
-  Category.get(1).then(function (res) {
-    $scope.contents = res.data.contents;
-  },
-  function (err) {
-    console.log(err);
-  })
+  $scope.contents=[];
+  page=0;
+  $scope.is_continue=true;
+  $scope.loadMore=function () {
+    if ($scope.is_continue) {
+      Category.get($stateParams.id,page,10).then(
+        function (res) {
+          if(!$scope.name){
+            $scope.name=res.data.name;
+          };
+          if (res.data.contents.length) {
+            Array.prototype.push.apply($scope.contents, res.data.contents);
+          }else{
+            $scope.is_continue = false;
+          };
+        },
+        function (err) {
+          console.log(err);
+        }
+      ).finally(function () {
+        page=page + 1;
+        $scope.$broadcast("scroll.infiniteScrollComplete");
+      })
+    };
+  }
+
 })
