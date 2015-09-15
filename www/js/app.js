@@ -22,7 +22,9 @@ angular.module('feedscrapper', ['ionic', 'feedscrapper.controllers','feedscrappe
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  // $ionicConfigProvider.scrolling.jsScrolling(false);
+
   $stateProvider
 
   .state('app', {
@@ -33,14 +35,6 @@ angular.module('feedscrapper', ['ionic', 'feedscrapper.controllers','feedscrappe
     controllerAs: 'vm'
   })
 
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
-      }
-    }
-  })
   .state('app.websites', {
     url: '/websites/:id',
     views: {

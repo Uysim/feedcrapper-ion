@@ -4,7 +4,7 @@
   </ion-nav-buttons>
   <ion-content>
     <ion-list>
-      <cat-home-list ng-repeat="category in categories track by $index" ng-model="category"></cat-home-list>
+      <cat-home-list ng-repeat="category in categories track by $index" ng-model="::category"></cat-home-list>
     </ion-list>
     <ion-infinite-scroll ng-if='!categories.length>0'>
     </ion-infinite-scroll>

@@ -3,7 +3,7 @@ angular.module('feedscrapper.directives', [])
   function renderTemplate (argument) {
     var codeLines = [
       '<a ng-click="homePageWebsite(categories)" menu-close><div class="item item-divider">Home</div></a>',
-      '<ion-item collection-repeat="category in categories" menu-close ng-href="#/app/categories/{{category.id}}">{{category.name}}</ion-item>'
+      '<ion-item collection-repeat="category in categories track by $index" menu-close ng-href="#/app/categories/{{::category.id}}?name={{ngModel.name}}">{{::category.name}}</ion-item>'
     ]
     return codeLines.join("");
   }
@@ -35,11 +35,11 @@ angular.module('feedscrapper.directives', [])
       '<div class="card">',
         '<div class="item item-divider"><strong>{{ngModel.name}}</strong></div>',
         '<a ng-repeat="content in contents track by $index" class="item item-thumbnail-left" href="#/app/contents/{{content.id}}">',
-          '<img src="{{content.thumnail}}">',
+          '<img ng-src="{{content.thumnail}}">',
           '<h2>{{content.name}}</h2>',
           '<p>{{content.text}}</p>',
         '</a>',
-        '<ion-item ng-href="#/app/categories/{{ngModel.id}}">Read More</ion-item>',
+        '<ion-item ng-href="#/app/categories/{{ngModel.id}}?name={{ngModel.name}}">Read More</ion-item>',
       '</div>'
     ]
     return codeLines.join("");
