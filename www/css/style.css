@@ -5,3 +5,54 @@
 .right {
   text-align: right;
 }
+.side-menu-item a.item-content {
+  background-color: #DADADA;
+}
+.item-home img {
+  float: left;
+  margin-right: 10px;
+  width: 100px;
+  height: auto;
+}
+.item-home h2 {
+  overflow: auto;
+  white-space: normal;
+}
+
+.white-divider {
+  background-color: white;
+  text-align: center;
+}
+
+.content-item p {
+  font-size: 16px;
+}
+.content-item h3 {
+  font-size: 20px;
+}
+
+.slider-slide h4 {
+  text-align: center;
+}
+
+.home-page-slider {
+  min-height: 200px;
+}
+
+.bar-black{
+  border-color: #444;
+  background-color: #111;
+
+}
+
+.bar-black .title,
+.bar-black .button
+{
+  color: #fff;
+}
+
+.grade-b .menu-content
+{
+  border-right: 0px;
+  border-left: 0px;
+}

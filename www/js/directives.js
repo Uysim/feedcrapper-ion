@@ -2,8 +2,10 @@ angular.module('feedscrapper.directives', [])
 .directive('webList', function () {
   function renderTemplate (argument) {
     var codeLines = [
-      '<a ng-click="homePageWebsite(categories)" menu-close><div class="item item-divider">Home</div></a>',
-      '<ion-item collection-repeat="category in categories track by $index" menu-close ng-href="#/app/categories/{{::category.id}}?name={{ngModel.name}}">{{::category.name}}</ion-item>'
+      '<ion-item menu-close ng-href="#/app/websites/1" class="item-dark">Home</ion-item>',
+      '<ion-item collection-repeat="category in categories" menu-close ng-href="#/app/categories/{{category.id}}?name={{category.name}}" class="item-dark">',
+        '{{category.name}}',
+      '</ion-item>'
     ]
     return codeLines.join("");
   }
@@ -32,14 +34,14 @@ angular.module('feedscrapper.directives', [])
 .directive('catHomeList', function () {
   function renderTemplate () {
     var codeLines = [
-      '<div class="card">',
+      '<div class="list">',
         '<div class="item item-divider"><strong>{{ngModel.name}}</strong></div>',
-        '<a ng-repeat="content in contents track by $index" class="item item-thumbnail-left" href="#/app/contents/{{content.id}}">',
+        '<a ng-repeat="content in contents track by $index" class="item item-home" href="#/app/contents/{{content.id}}">',
           '<img ng-src="{{content.thumnail}}">',
           '<h2>{{content.name}}</h2>',
-          '<p>{{content.text}}</p>',
+          '<p>{{content.created_at}}</p>',
         '</a>',
-        '<ion-item ng-href="#/app/categories/{{ngModel.id}}?name={{ngModel.name}}">Read More</ion-item>',
+        '<a ng-href="#/app/categories/{{ngModel.id}}?name={{ngModel.name}}" class="item item-divider white-divider">Read More</a>',
       '</div>'
     ]
     return codeLines.join("");
@@ -51,11 +53,11 @@ angular.module('feedscrapper.directives', [])
     },
     controller: function ($scope,$state,Category) {
       //TODO: Category.get($scope.ngModel.id)
-      Category.get($scope.ngModel.id,0,2).then(function (res) {
+      Category.get($scope.ngModel.id,0,5).then(function (res) {
         $scope.contents = res.data.contents
       },
       function (err) {
-        alert(err.data)
+        alert("Can not get category with id " + $scope.ngModel.id)
       })
     },
     template: renderTemplate

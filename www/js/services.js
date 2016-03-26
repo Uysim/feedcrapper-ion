@@ -1,4 +1,4 @@
-var base_url = 'http://128.199.65.71:3000/api/v1'
+var base_url = 'http://feedscrapper.allovertop.com/api/v1'
 angular.module('feedscrapper.services', [])
 .factory('Websites', function ($http) {
   return {

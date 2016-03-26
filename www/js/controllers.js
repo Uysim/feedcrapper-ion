@@ -8,11 +8,13 @@ angular.module('feedscrapper.controllers', [])
 })
 
 
-.controller('HomeCtrl',function ($scope,$stateParams,HomePage,Webcategories) {
+.controller('HomeCtrl',function ($scope,$stateParams,$ionicSlideBoxDelegate,HomePage,Webcategories) {
 
   //TODO: Webcategories.get($stateParams.id)
   Webcategories.get($stateParams.id).then(function (res) {
-    $scope.categories = res.data.categories;
+    $scope.website = res.data;
+    $ionicSlideBoxDelegate.update();
+    $ionicSlideBoxDelegate.loop(true);
   },
   function (err) {
     console.log(err);
@@ -29,18 +31,17 @@ angular.module('feedscrapper.controllers', [])
   })
 })
 
-.controller('CategoriesCtrl', function ($scope,$stateParams,Category) {
+.controller('CategoriesCtrl', function ($scope,$stateParams,Category,$location) {
   //TODO: Category.get($stateParams.id)
   $scope.contents=[];
   page=0;
+
   $scope.is_continue=true;
+  $scope.name=$location.search().name;
   $scope.loadMore=function () {
     if ($scope.is_continue) {
-      Category.get($stateParams.id,page,10).then(
+      Category.get($stateParams.id,page,5).then(
         function (res) {
-          if($scope.name == undefined){
-            $scope.name=res.data.name;
-          };
           if (res.data.contents.length) {
             Array.prototype.push.apply($scope.contents, res.data.contents);
           }else{

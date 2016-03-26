@@ -7,9 +7,49 @@
 angular.module('feedscrapper', ['ionic', 'feedscrapper.controllers','feedscrapper.services','feedscrapper.directives'])
 
 .run(function($ionicPlatform) {
+  var admobid = {};
+  if( /(android)/i.test(navigator.userAgent) ) { // for android & amazon-fireos
+      admobid = {
+        banner: 'ca-app-pub-2927668463677743/1972305310',
+        interstitial: 'ca-app-pub-2927668463677743/3449038510'
+      };
+  } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
+      admobid = {
+        banner: '', // or DFP format "/6253334/dfp_example_ad"
+        interstitial: ''
+      };
+  } else { // for windows phone
+      admobid = {
+        banner: '', // or DFP format "/6253334/dfp_example_ad"
+        interstitial: ''
+      };
+  }
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
+    // console.log('***************************')
+    // console.log(window.cordova.plugins.AdMob);
+    // if(window.cordova && window.cordova.plugins.AdMob){
+    //   window.cordova.plugins.AdMob.createBanner( {
+    //   adId: admobid.banner,
+    //   position: AdMob.AD_POSITION.BOTTOM_CENTER,
+    //   autoShow: true });
+    // }
+    if (window.AdMob) {
+      AdMob.prepareInterstitial({
+        adId: admobid.interstitial,
+        autoShow: true,
+        isTesting: true
+      });
+      window.AdMob.createBanner( {
+        adId: admobid.banner,
+        position: AdMob.AD_POSITION.BOTTOM_CENTER,
+        autoShow: true,
+        // remove on production
+        isTesting: true
+      });
+    };
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
@@ -59,6 +99,14 @@ angular.module('feedscrapper', ['ionic', 'feedscrapper.controllers','feedscrappe
       'menuContent': {
         templateUrl: 'templates/category.html',
         controller: 'CategoriesCtrl'
+      }
+    }
+  })
+  .state('app.aboutus', {
+    url: '/aboutus',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/aboutus.html'
       }
     }
   })

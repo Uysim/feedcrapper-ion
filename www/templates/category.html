@@ -4,10 +4,12 @@
   </ion-nav-buttons>
   <ion-content>
     <div class="list">
-      <a collection-repeat="content in contents track by $index" class="item item-thumbnail-left" href="#/app/contents/{{content.id}}">
-        <img src="{{content.thumnail}}">
-        <h2>{{content.name}}</h2>
-        <p>{{content.text}}</p>
+      <a collection-repeat="content in contents" href="#/app/contents/{{content.id}}" class="item item-body" >
+        <h2 style="font-size: large;">{{content.name}}</h2>
+        <p>{{content.created_at}}</p>
+        <div class="item item-image">
+          <img src="{{content.thumnail}}">
+        </div>
       </a>
     </div>
     <ion-infinite-scroll ng-if='is_continue' on-infinite="loadMore()" distance="25%">

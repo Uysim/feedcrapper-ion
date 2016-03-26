@@ -2,11 +2,24 @@
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <a href="#/app/aboutus" class="button button-icon icon ion-information-circled"></a>
+  </ion-nav-buttons>
   <ion-content>
+    <ion-slide-box show-pager="false">
+      <ion-slide ng-repeat="slider in website.sliders track by $index">
+        <div class="item item-home" >
+          <img ng-src="{{slider.thumnail}}">
+          <h2>{{slider.name}}</h2>
+        </div>
+      </ion-slide>
+    </ion-slide-box>
+
     <ion-list>
-      <cat-home-list ng-repeat="category in categories track by $index" ng-model="::category"></cat-home-list>
+      <cat-home-list ng-repeat="category in website.categories track by $index" ng-model="category"></cat-home-list>
     </ion-list>
-    <ion-infinite-scroll ng-if='!categories.length>0'>
+
+    <ion-infinite-scroll ng-if='!sliders.length>0'>
     </ion-infinite-scroll>
   </ion-content>
 </ion-view>
